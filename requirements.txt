@@ -6,11 +6,13 @@ crispy-bootstrap5==2025.4
 Django==5.2
 django-crispy-forms==2.4
 django-filter==25.1
+gunicorn==23.0.0
 idna==3.10
 iniconfig==2.1.0
 packaging==25.0
 pillow==11.2.1
 pluggy==1.5.0
+psycopg2-binary==2.9.10
 pytest==8.3.5
 python-decouple==3.8
 razorpay==1.4.2
@@ -19,4 +21,4 @@ setuptools==80.3.1
 sqlparse==0.5.3
 tzdata==2025.2
 urllib3==2.4.0
-psycopg2-binary
+whitenoise==6.9.0
