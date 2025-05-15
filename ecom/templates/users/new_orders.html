@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <h2>New Orders</h2>
+    {% if orders %}
+        <div class="row g-4">
+            {% for order in orders %}
+            <div class="col-12">
+                <div class="card p-3 mb-3 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Order #{{ order.id }}</strong>
+                            <span class="badge bg-warning text-dark ms-2">{{ order.get_status_display }}</span>
+                        </div>
+                        <div class="text-muted small">{{ order.created_at|date:"Y-m-d H:i" }}</div>
+                    </div>
+                    <div class="row mt-3">
+                        {% for item in order.items.all %}
+                        <div class="col-auto">
+                            <div class="card" style="width: 70px;">
+                                <img src="{{ item.product.image.url }}" class="img-fluid rounded" alt="{{ item.product.name }}">
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col">
+                            <ul class="list-unstyled mb-0">
+                                {% for item in order.items.all %}
+                                <li>
+                                    <strong>{{ item.product.name }}</strong> × {{ item.quantity }} — ₹{{ item.price }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-auto text-end">
+                            <div class="fw-bold fs-5">Total: ₹{{ order.total }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No new orders.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home | Monogatari{% endblock %}
+{% block content %}
+<section id="billboard" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="section-title text-center mt-4">New Collections</h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="billboardCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-6.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-1.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-2.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-3.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-4.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-5.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-9.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-8.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{% static 'images/banner-image-7.jpg' %}" class="d-block w-100 img-fluid" alt="product">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#billboardCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#billboardCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#billboardCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#billboardCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#billboardCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="0">
+          <div class="py-5">
+            <img src="{% static 'images/calendar.png' %}" width="58" height="58" alt="calendar"/>
+            <h4 class="element-title text-capitalize my-3">Book An Appointment</h4>
+            <p>Schedule your visit online and secure your preferred time slot with ease.</p>
+          </div>
+        </div>
+        <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="300">
+          <div class="py-5">
+            <img src="{% static 'images/shopping-bag.png' %}" width="38" height="38" alt="shopping bag" class="mb-4" />
+            <h4 class="element-title text-capitalize my-3">Pick up in store</h4>
+            <p>Order online and conveniently collect your purchase at your nearest store.</p>
+          </div>
+        </div>
+        <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="600">
+          <div class="py-5">
+            <img src="{% static 'images/gift.png' %}" width="38" height="38" alt="gift" class="mb-4" />
+            <h4 class="element-title text-capitalize my-3">Special packaging</h4>
+            <p>Enjoy premium gift wrapping for a memorable unboxing experience.</p>
+          </div>
+        </div>
+        <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="900">
+          <div class="py-5">
+            <img src="{% static 'images/arrow-cycle.png' %}" width="38" height="38" alt="free global returns" class="mb-4" />
+            <h4 class="element-title text-capitalize my-3">free global returns</h4>
+            <p>Shop confidently with hassle-free returns from anywhere in the world.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="testimonials py-5">
+    <div class="section-header text-center mt-5">
+      <h3 class="section-title">WE LOVE A GOOD COMPLIMENT</h3>
+    </div>
+    <div class="swiper testimonial-swiper overflow-hidden my-5">
+      <div class="swiper-wrapper d-flex">
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“More than expected crazy soft, flexible and best fitted white simple denim shirt.”</p>
+              <div class="review-title text-uppercase">casual way</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“Best fitted white denim shirt more than expected crazy soft, flexible</p>
+              <div class="review-title text-uppercase">uptop</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“Best fitted white denim shirt more white denim than expected flexible crazy soft.”</p>
+              <div class="review-title text-uppercase">Denim craze</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“Best fitted white denim shirt more than expected crazy soft, flexible</p>
+              <div class="review-title text-uppercase">uptop</div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-swiper-pagination d-flex justify-content-center mb-5"></div>
+  </section>
+{% endblock %}

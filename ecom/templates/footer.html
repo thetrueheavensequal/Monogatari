@@ -1,0 +1,76 @@
+{% load static %}
+
+<footer id="footer" class="mt-5">
+    <div class="container">
+        <div class="row d-flex flex-wrap justify-content-between py-5">
+            <div class="col-md-3 col-sm-6">
+                <div class="footer-menu">
+                    <a href="{% url 'home' %}">Monogatari</a>
+                    <span class="footer-desc">
+                        Monogatari is your destination for curated fashion and lifestyle essentials. Discover unique collections, enjoy seamless shopping, and experience exceptional customer service with every order.
+                    </span>
+                    <div class="social-links">
+                        <ul class="list-unstyled d-flex flex-wrap gap-3">
+                            <!-- Social icons here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="footer-menu">
+                    <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
+                    <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+                        <li class="menu-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="menu-item"><a href="{% url 'collection' %}">Collection</a></li>
+                        <li class="menu-item"><a href="{% url 'about' %}">About</a></li>
+                        <li class="menu-item"><a href="{% url 'contact' %}">Contact</a></li>
+                        <li class="menu-item"><a href="{% url 'cart' %}">Cart</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="footer-menu">
+                    <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
+                    <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+                        <li class="menu-item"><a href="#">Shipping</a></li>
+                        <li class="menu-item"><a href="#">Returns</a></li>
+                        <li class="menu-item"><a href="#">FAQ</a></li>
+                        <li class="menu-item"><a href="#">Support</a></li>
+                        <li class="menu-item"><a href="#">Privacy Policy</a></li>
+                        <li class="menu-item"><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="footer-menu">
+                    <h5 class="widget-title text-uppercase mb-4">Contact Us</h5>
+                    <span class="footer-desc">Do you have any questions or suggestions? <a href="mailto:contact@yourcompany.com" class="item-anchor">contact@yourcompany.com</a></span>
+                    <span class="footer-desc">Do you need support? Give us a call. <a href="tel:+43 720 11 52 78" class="item-anchor">+43 720 11 52 78</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border-top py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-wrap align-items-center">
+                    <div class="shipping me-3">
+                        <span>We ship with:</span>
+                        <img src="{% static 'images/ship.png' %}" alt="icon" width="50px">
+                    </div>
+                    <div class="payment-option">
+                        <span>Payment Option:</span>
+                        <img src="{% static 'images/visa-card.png' %}" alt="card">
+                        <img src="{% static 'images/paypal-card.png' %}" alt="card">
+                        <img src="{% static 'images/master-card.png' %}" alt="card">
+                    </div>
+                </div>
+                <div class="col-md-6 text-end align-self-center">
+                    <div class="copyright-text">
+                        <p class="mb-0">&copy; 2023 Monogatari. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

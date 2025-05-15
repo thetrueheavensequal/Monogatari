@@ -1,0 +1,15 @@
+.custom-pill-btn {
+    border-radius: 2rem !important;
+    background: #7a7368;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 1.2rem 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+.custom-pill-btn:hover, .custom-pill-btn.active, .btn-check:checked + .custom-pill-btn {
+    background: #5e584f;
+    color: #fff;
+}

@@ -1,0 +1,33 @@
+body {
+    background: #f6e3ba;
+}
+.cart-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-card {
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(76, 68, 182, 0.09);
+    background: #fff;
+    overflow: hidden;
+}
+.cart-product-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.cart-summary {
+    background: #f8f9fa;
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+}
+.cart-remove {
+    color: #dc3545;
+    cursor: pointer;
+}
+.cart-remove:hover {
+    color: #a71d2a;
+}

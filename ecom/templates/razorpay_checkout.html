@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <h2>Checkout</h2>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "{{ razorpay_key_id }}",
+    "amount": "{{ amount }}",
+    "currency": "{{ currency }}",
+    "name": "Monogatari",
+    "description": "Cart Purchase",
+    "order_id": "{{ order_id }}",
+    "handler": function (response){
+        // Redirect to a Django view that clears the cart
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'razorpay_payment_success' %}";
+        var csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = "{{ csrf_token }}";
+        form.appendChild(csrf);
+        var paymentId = document.createElement('input');
+        paymentId.type = 'hidden';
+        paymentId.name = 'razorpay_payment_id';
+        paymentId.value = response.razorpay_payment_id;
+        form.appendChild(paymentId);
+        document.body.appendChild(form);
+        form.submit();
+    },
+    "theme": { "color": "#F37254" }
+};
+window.onload = function() {
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+};
+</script>
+{% endblock %}

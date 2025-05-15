@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .card {
+        font-size: 0.97rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .card-img-top {
+        width: 100%;
+        height: auto;           /* Let image height adjust automatically */
+        object-fit: contain;    /* Show full image, no cropping */
+        background: #f8f8f8;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    .card-text {
+        font-size: 1rem;
+    }
+    .btn-sm {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 160px;
+        }
+    }
+</style>
+<div class="container my-5">
+    <h2 class="mb-4 text-capitalize">{{ category }} Collection</h2>
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text fw-bold">₹{{ product.price }}</p>
+                    <a href="{% url 'product_detail' category=product.category slug=product.slug %}" class="btn btn-outline-primary btn-sm">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

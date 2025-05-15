@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <h2>Transactions</h2>
+    {% if transactions %}
+        <div class="row g-4">
+            {% for txn in transactions %}
+            <div class="col-12">
+                <div class="card p-3 mb-3 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Txn ID:</strong> {{ txn.payment_id }}
+                            {% if txn.order %}
+                                <span class="badge bg-info ms-2">Order #{{ txn.order.id }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="text-muted small">{{ txn.created_at|date:"Y-m-d H:i" }}</div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <div>
+                            <span class="fw-bold">Amount:</span> ₹{{ txn.amount }}
+                        </div>
+                        <div>
+                            <span class="badge bg-success">{{ txn.status|title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No transactions found.</p>
+    {% endif %}
+</div>
+{% endblock %}

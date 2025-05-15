@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="row g-4 align-items-start">
+        <!-- Product Info -->
+        <div class="col-md-6">
+          <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'collection' %}">Collection</a></li>
+              {% if category %}
+                <li class="breadcrumb-item">
+                  <a href="{% url 'product_list' category=category %}">{{ category|title }}</a>
+                </li>
+              {% endif %}
+              {% if product %}
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+              {% endif %}
+            </ol>
+          </nav>
+          <h2 class="fw-bold mb-2">{{ product.name }}</h2>
+          <div class="fs-4 mb-3 text-muted">₹{{ product.price }}</div>
+          <form class="mb-4">
+            <div class="mb-3">
+              <label for="size" class="form-label">Choose size:</label>
+              <select class="form-select w-auto d-inline-block" id="size" name="size">
+                {% for size in sizes %}
+                  <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </form>
+          <form method="post" action="{% url 'cart' %}" class="mb-2 d-grid gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="product_slug" value="{{ product.slug }}">
+            <button type="submit" class="btn btn-dark btn-lg rounded-1">ADD TO CART</button>
+          </form>
+          <form method="post" action="{% url 'wishlist' %}" class="d-grid gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="product_slug" value="{{ product.slug }}">
+            <button type="submit" class="btn btn-outline-dark btn-lg rounded-1">
+              <i class="bi bi-heart me-2"></i>ADD TO WISHLIST
+            </button>
+          </form>
+          <h5 class="fw-bold mt-4 mb-2">About the product</h5>
+          <div class="mb-2"><strong>Description:</strong></div>
+          <div class="mb-2">{{ product.description }}</div>
+          {% if product.composition %}
+            <div class="mb-2"><strong>Composition:</strong> {{ product.composition }}</div>
+          {% endif %}
+          {% if product.care %}
+            <div class="mb-2"><strong>Care of clothes:</strong> {{ product.care }}</div>
+          {% endif %}
+          {% if product.disclaimer %}
+          <div class="mb-2"><strong>Disclaimer:</strong> {{ product.disclaimer }}</div>
+          {% endif %}
+          <!-- Fixed Size & Measurements Section -->
+          <div class="mb-2 mt-4"><strong>Size & Measurements</strong></div>
+
+          {% if product.category == 'pant' %}
+              <div class="table-responsive mb-3">
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Size</th>
+                              <th>To Fit Waist (cm)</th>
+                              <th>Inseam Length (cm)</th>
+                              <th>Hips (cm)</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>28</td><td>71.1</td><td>78.7</td><td>96.5</td></tr>
+                          <tr><td>30</td><td>76.2</td><td>78.7</td><td>101.6</td></tr>
+                          <tr><td>32</td><td>81.3</td><td>78.7</td><td>106.7</td></tr>
+                          <tr><td>34</td><td>86.4</td><td>78.7</td><td>111.8</td></tr>
+                          <tr><td>36</td><td>91.4</td><td>78.7</td><td>116.8</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div>
+                <strong>How to Measure: </strong><br><br>
+                <img src="{% static 'images/how_to_measure.png' %}" alt="how to measure pants" class="img-fluid" style="border-radius: 0.5rem;">
+              </div>
+          {% elif product.category == 'coat' %}
+              <div class="table-responsive mb-3">
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Size</th>
+                              <th>Chest (cm/in)</th>
+                              <th>Shoulder (cm/in)</th>
+                              <th>Length (cm/in)</th>
+                              <th>Sleeve (cm/in)</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>M</td><td>120 / 47.2</td><td>57.5 / 22.6</td><td>105.5 / 41.5</td><td>54 / 21.3</td></tr>
+                          <tr><td>L</td><td>124 / 48.8</td><td>59 / 23.2</td><td>107 / 42.1</td><td>55 / 21.7</td></tr>
+                          <tr><td>XL</td><td>128 / 50.4</td><td>60.5 / 23.8</td><td>108.5 / 42.7</td><td>56 / 22.0</td></tr>
+                          <tr><td>2XL</td><td>132 / 52.0</td><td>62 / 24.4</td><td>110 / 43.3</td><td>57 / 22.4</td></tr>
+                          <tr><td>3XL</td><td>136 / 53.5</td><td>63.5 / 25.0</td><td>111.5 / 43.9</td><td>58 / 22.8</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="table-responsive mb-3">
+                  <h6 class="fw-bold mb-3">Size Recommendation Based on Height and Weight</h6>
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Weight (kg/lbs)</th>
+                              <th>Height: 160-165cm<br>(5'3"-5'5")</th>
+                              <th>Height: 166-170cm<br>(5'5"-5'7")</th>
+                              <th>Height: 171-175cm<br>(5'7"-5'9")</th>
+                              <th>Height: 176-180cm<br>(5'9"-5'11")</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>45-50kg (99-110lbs)</td><td>M</td><td>M</td><td>M</td><td>L</td></tr>
+                          <tr><td>50-60kg (110-132lbs)</td><td>M</td><td>M</td><td>L</td><td>L</td></tr>
+                          <tr><td>60-70kg (132-154lbs)</td><td>L</td><td>L</td><td>L</td><td>XL</td></tr>
+                          <tr><td>70-80kg (154-176lbs)</td><td>L</td><td>XL</td><td>XL</td><td>2XL</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="alert alert-secondary">
+                  <small><i class="bi bi-info-circle me-2"></i>Please note that due to manual measurement, there may be a 1-3 cm deviation, kindly take note.</small>
+              </div>
+          {% elif product.category == 'dress' %}
+              <div class="table-responsive mb-3">
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Size</th>
+                              <th>To Fit Bust (cm)</th>
+                              <th>To Fit Waist (cm)</th>
+                              <th>To Fit Hip (cm)</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>XXS</td><td>76 - 79</td><td>61 - 64</td><td>84 - 86</td></tr>
+                          <tr><td>XS</td><td>81 - 84</td><td>66 - 69</td><td>89 - 91</td></tr>
+                          <tr><td>S</td><td>86 - 89</td><td>71 - 74</td><td>94 - 97</td></tr>
+                          <tr><td>M</td><td>91 - 94</td><td>76 - 79</td><td>99 - 102</td></tr>
+                          <tr><td>L</td><td>97 - 99</td><td>81 - 84</td><td>104 - 107</td></tr>
+                          <tr><td>XL</td><td>102 - 104</td><td>86 - 89</td><td>109 - 112</td></tr>
+                          <tr><td>2XL</td><td>107 - 109</td><td>91 - 94</td><td>114 - 117</td></tr>
+                          <tr><td>3XL</td><td>112 - 114</td><td>97 - 99</td><td>119 - 122</td></tr>
+                          <tr><td>4XL</td><td>117 - 119</td><td>102 - 104</td><td>124 - 127</td></tr>
+                          <tr><td>5XL</td><td>122 - 124</td><td>107 - 109</td><td>130 - 132</td></tr>
+                          <tr><td>6XL</td><td>127 - 130</td><td>112 - 114</td><td>135 - 137</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="alert alert-info">
+                  <small><i class="bi bi-info-circle me-2"></i>Measurements are provided in centimeters (cm). For the best fit, we recommend measuring yourself before selecting a size.</small>
+              </div>
+          {% elif product.category == 'skirt' %}
+              <div class="table-responsive mb-3">
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Size</th>
+                              <th>Brand Size</th>
+                              <th>Skirt Length (cm)</th>
+                              <th>To Fit Hip (cm)</th>
+                              <th>To Fit Waist (cm)</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>28</td><td>S</td><td>43.2</td><td>91.4</td><td>71.1</td></tr>
+                          <tr><td>30</td><td>M</td><td>45.7</td><td>96.5</td><td>76.2</td></tr>
+                          <tr><td>32</td><td>L</td><td>48.3</td><td>101.6</td><td>81.3</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="mb-4">
+                  <strong>How to Measure: </strong><br><br>
+                  <img src="{% static 'images/how-to-measure-skirt.png' %}" alt="how to measure skirt" class="img-fluid mb-3" style="max-width: 300px; border-radius: 0.5rem;">
+                  <ul class="list-unstyled mt-3">
+                      <li class="mb-2"><strong>To Fit Waist:</strong> Measure at the narrowest part</li>
+                      <li class="mb-2"><strong>Length:</strong> Measure from waist to desired length</li>
+                      <li class="mb-2"><strong>To Fit Hip:</strong> Measure at the fullest part</li>
+                  </ul>
+              </div>
+
+              <div class="alert alert-secondary">
+                  <small><i class="bi bi-info-circle me-2"></i>Please note that due to manual measurement, there may be a 1-3 cm deviation.</small>
+              </div>
+
+          {% elif product.category == 'top' %}
+    <div class="table-responsive mb-3">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Bust (cm)</th>
+                    <th>Front Length (cm)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>S</td><td>84.1</td><td>37.1</td></tr>
+                <tr><td>M</td><td>87.9</td><td>38.1</td></tr>
+                <tr><td>L</td><td>91.9</td><td>39.1</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-4">
+        <strong>How to Measure:</strong><br><br>
+        <img src="{% static 'images/top_measure.png' %}" alt="how to measure top" class="img-fluid mb-3" style="max-width: 300px; border-radius: 0.5rem;">
+        <ul class="list-unstyled mt-3">
+            <li class="mb-2"><strong>Collar:</strong> Measure around the base of the neck</li>
+            <li class="mb-2"><strong>Bust:</strong> Measure at the fullest part of the chest</li>
+            <li class="mb-2"><strong>Waist:</strong> Measure at the narrowest point</li>
+            <li class="mb-2"><strong>Length:</strong> Measure from shoulder to desired length</li>
+            <li class="mb-2"><strong>Sleeve Length:</strong> Measure from shoulder edge to sleeve end</li>
+            <li class="mb-2"><strong>Across Shoulder:</strong> Measure straight across from shoulder to shoulder</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-secondary">
+        <small><i class="bi bi-info-circle me-2"></i>* Garment Measurements in Cms. Please note that there may be a 1-3 cm deviation in measurements.</small>
+    </div>
+
+          {% else %}
+              <div class="table-responsive mb-3">
+                  <table class="table table-bordered align-middle">
+                      <thead>
+                          <tr>
+                              <th>Size</th>
+                              <th>Width</th>
+                              <th>Length</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>XS</td><td>104 cm</td><td>70 cm</td></tr>
+                          <tr><td>S</td><td>112 cm</td><td>72 cm</td></tr>
+                          <tr><td>M</td><td>120 cm</td><td>73 cm</td></tr>
+                          <tr><td>L</td><td>128 cm</td><td>75 cm</td></tr>
+                          <tr><td>XL</td><td>136 cm</td><td>76 cm</td></tr>
+                          <tr><td>XXL</td><td>144 cm</td><td>77 cm</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          {% endif %}
+        </div>
+        <!-- Product Image -->
+        <div class="col-md-6">
+          <div class="rounded-4 d-flex align-items-center justify-content-center p-4" style="min-height:420px; background: transparent">
+            <img src="{{ product.image.url }}" class="img-fluid rounded-3" alt="{{ product.name }}" style="max-height: 400px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+{% endblock %}

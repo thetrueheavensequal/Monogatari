@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ block.super }}{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar: Filter & Sort -->
+        <aside class="col-lg-3 mb-4">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <strong>Filter</strong>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <h6 class="mb-2">Type</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filter-type1">
+                            <label class="form-check-label" for="filter-type1">Printed</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filter-type2">
+                            <label class="form-check-label" for="filter-type2">Plain</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="filter-type3">
+                            <label class="form-check-label" for="filter-type3">Formal</label>
+                        </div>
+                        <h6 class="mb-2">Price</h6>
+                        <div class="d-flex align-items-center mb-3">
+                            <input type="range" class="form-range me-2" min="0" max="1000" step="10" id="price-range" value="250" oninput="document.getElementById('price-value').textContent = '₹' + this.value">
+                            <span id="price-value">₹250</span>
+                        </div>
+                        <h6 class="mb-2">Sort By</h6>
+                        <select class="form-select">
+                            <option selected>Trending</option>
+                            <option value="1">Price: Low to High</option>
+                            <option value="2">Price: High to Low</option>
+                            <option value="3">Newest</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-3 w-100">Apply</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content: Cards -->
+        <main class="col-lg-9">
+            <section>
+                <h2 class="mb-4 text-capitalize">Shirts Collection</h2>
+                <div class="row g-4">
+                    {% for shirt in shirts %}
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="{{ shirt.image.url }}" class="card-img-top" alt="{{ shirt.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ shirt.name }}</h5>
+                                <p class="card-text fw-bold">₹{{ shirt.price }}</p>
+                                <a href="{% url 'shirt_detail' shirt.slug %}" class="btn btn-outline-primary btn-sm">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!-- filepath: f:\Django-Projects\Azure\project\templates\contact.html -->
+{% extends "./base.html" %}
+
+{% load static %}
+{% block title %} Contact Us | Monogatari {% endblock %}
+{% block content %}
+
+<div class="container py-5 contact">
+    <div class="card shadow-lg border-0 mt-4">
+        <div class="row g-5 contact-bg">
+            
+            <!-- Contact Details -->
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-3">Get in Touch</h2>
+                <p class="mb-2">
+                    <i class="bi bi-telephone-fill me-2 text-primary"></i>
+                    <strong>Phone:</strong> +91 98765 43210
+                </p>
+                <p class="mb-2">
+                    <i class="bi bi-envelope-fill me-2 text-primary"></i>
+                    <strong>Email:</strong> contact@monogatari.in
+                </p>
+                <p class="mb-0">
+                    <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
+                    <strong>Address:</strong> 123 Monogatari St, Kochi, Kerala
+                </p>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-3">
+                    <i class="bi bi-chat-dots-fill me-2 text-primary"></i>Send Us a Message
+                </h2>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.name.label_tag }} {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.email.label_tag }} {{ form.email }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.phone.label_tag }} {{ form.phone }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.message.label_tag }} {{ form.message }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-send-fill me-2"></i>Send Message
+                    </button>
+                </form>
+
+                {% if contact_info %}
+                <div class="mt-4 bg-light p-3 rounded">
+                    <h6 class="fw-bold">
+                        <i class="bi bi-info-circle-fill me-2 text-primary"></i>Submitted Info:
+                    </h6>
+                    <p><strong>Name:</strong> {{ contact_info.name }}</p>
+                    <p><strong>Phone:</strong> {{ contact_info.phone }}</p>
+                    <p><strong>Email:</strong> {{ contact_info.email }}</p>
+                    <p><strong>Message:</strong> {{ contact_info.message }}</p>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

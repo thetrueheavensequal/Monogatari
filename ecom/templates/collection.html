@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static %}
+{% load collection_extras %}
+{% block title %}Collections | Monogatari{% endblock %}
+{% block content %}
+
+<style>
+.custom-pill-btn {
+    border-radius: 2rem !important;
+    background: #f6e3ba;
+    color:rgb(0, 0, 0);
+    border: none;
+    width: 100%;
+    padding: 1.2rem 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+.custom-pill-btn:hover, .custom-pill-btn.active, .btn-check:checked + .custom-pill-btn {
+    background: #7a8fa6 !important; /* or any solid color you like */
+    color: #fff !important;
+    border: none !important;
+}
+.small-pill-btn {
+    border-radius: 0 !important;
+    padding: 0.5rem 0 !important;
+    font-size: 1rem !important;
+    margin-bottom: 0 !important;
+}
+.sidebar-filter{
+    background:#CFB284;
+}
+
+.filter-header {
+    background: #8b795b;
+    color: #fff;
+    font-weight: 600;
+}
+</style>
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar: Filter & Sort -->
+        <aside class="col-lg-3 mb-4">
+            <div class="card mb-4">
+                <div class="card-header filter-header">
+                    <strong>Filter</strong>
+                </div>
+                <div class="card-body sidebar-filter">
+                    <form method="get">
+                        <!-- Gender as pill buttons, 2 per row -->
+                        <div class="mb-4">
+                            <label class="form-label">Gender:</label>
+                            <div class="row g-2">
+                                {% for value, label in filter.form.gender.field.choices %}
+                                    {% if value %}
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="gender" id="gender-{{ value }}" value="{{ value }}" autocomplete="off"
+                                            {% if filter.form.gender.value == value %}checked{% endif %}>
+                                        <label class="btn btn-outline-secondary custom-pill-btn small-pill-btn w-100" for="gender-{{ value }}">{{ label }}</label>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Category as pill buttons, 2 per row -->
+                        <div class="mb-4">
+                            <label class="form-label">Category:</label>
+                            <div class="row g-2">
+                                {% for value, label in filter.form.category.field.choices %}
+                                    {% if value %}
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="category" id="cat-{{ value }}" value="{{ value }}" autocomplete="off"
+                                            {% if filter.form.category.value == value %}checked{% endif %}>
+                                        <label class="btn btn-outline-secondary custom-pill-btn small-pill-btn w-100" for="cat-{{ value }}">{{ label }}</label>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Price sliders -->
+                        <label for="min_price">Min Price: ₹<span id="min_price_val">{{ filter.form.min_price.value }}</span></label>
+                        <input type="range" id="min_price" name="min_price" min="0" max="5000" step="50"
+                               value="{{ filter.form.min_price.value|default:0 }}"
+                               oninput="document.getElementById('min_price_val').textContent = this.value">
+
+                        <label for="max_price" class="mt-2">Max Price: ₹<span id="max_price_val">{{ filter.form.max_price.value }}</span></label>
+                        <input type="range" id="max_price" name="max_price" min="0" max="5000" step="50"
+                               value="{{ filter.form.max_price.value|default:5000 }}"
+                               oninput="document.getElementById('max_price_val').textContent = this.value">
+
+                        <button type="submit" class="btn btn-primary mt-3 w-100">Apply</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content: Collections -->
+        <main class="col-lg-9">
+            {% if filter_active %}
+                <div class="row g-4 mb-5">
+                    {% for product in products %}
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.price|truncatewords:15 }}</p>
+                                <a href="{% url 'product_detail' category=product.category slug=product.slug %}" class="btn btn-outline-primary btn-sm">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-muted">No products found.</div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Static category cards/sections go here -->
+                <section class="mb-5">
+                    <h2 class="mb-4">Men's Collection</h2>
+                    <div class="row g-4">
+                        <!-- Shirts -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/men-shirt.jpg' %}" class="card-img-top" alt="Men's Shirt">
+                                <div class="card-body">
+                                    <h5 class="card-title">Shirts</h5>
+                                    <p class="card-text">Classic and modern shirts for every occasion.</p>
+                                    <a href="{% url 'product_list' category='shirt' %}" class="btn btn-outline-primary btn-sm">Shop Shirts</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pants -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/chico.jpg' %}" class="card-img-top" alt="Men's Pants">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pants</h5>
+                                    <p class="card-text">Comfortable and stylish pants for men.</p>
+                                    <a href="{% url 'product_list' category='pant' %}" class="btn btn-outline-primary btn-sm">Shop Pants</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Coats -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/men-coat.png' %}" class="card-img-top" alt="Men's Coats">
+                                <div class="card-body">
+                                    <h5 class="card-title">Coats</h5>
+                                    <p class="card-text">Stay warm and trendy with our coats.</p>
+                                    <a href="{% url 'product_list' category='coat' %}" class="btn btn-outline-primary btn-sm">Shop Coats</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2 class="mb-4">Women's Collection</h2>
+                    <div class="row g-4">
+                        <!-- Dresses -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/dress.jpg' %}" class="card-img-top" alt="Women's Dresses">
+                                <div class="card-body">
+                                    <h5 class="card-title">Dresses</h5>
+                                    <p class="card-text">Elegant dresses for every style and season.</p>
+                                    <a href="{% url 'product_list' category='dress' %}" class="btn btn-outline-primary btn-sm">Shop Dresses</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skirts -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/skirt.jpg' %}" class="card-img-top" alt="Women's Skirts">
+                                <div class="card-body">
+                                    <h5 class="card-title">Skirts</h5>
+                                    <p class="card-text">Trendy skirts for casual and formal looks.</p>
+                                    <a href="{% url 'product_list' category='skirt' %}" class="btn btn-outline-primary btn-sm">Shop Skirts</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tops -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/top.jpg' %}" class="card-img-top" alt="Women's Tops">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tops</h5>
+                                    <p class="card-text">Versatile tops for every day and occasion.</p>
+                                    <a href="{% url 'product_list' category='top' %}" class="btn btn-outline-primary btn-sm">Shop Tops</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        </main>
+    </div>
+</div>
+<script>
+document.querySelectorAll('.btn-check[name="gender"], .btn-check[name="category"]').forEach(function(radio) {
+    radio.addEventListener('mousedown', function(e) {
+        if (this.checked) {
+            // Uncheck after click
+            setTimeout(() => { this.checked = false; }, 100);
+        }
+    });
+});
+
+// Remove value from form if none selected
+document.querySelector('form').addEventListener('submit', function(e) {
+    ['gender', 'category'].forEach(function(name) {
+        var checked = document.querySelector('.btn-check[name="' + name + '"]:checked');
+        if (!checked) {
+            // Remove all inputs with this name so nothing is submitted
+            document.querySelectorAll('.btn-check[name="' + name + '"]').forEach(function(input) {
+                input.disabled = true;
+            });
+        }
+    });
+    // Re-enable after submit to not break further interaction
+    setTimeout(function() {
+        document.querySelectorAll('.btn-check').forEach(function(input) {
+            input.disabled = false;
+        });
+    }, 100);
+});
+</script>
+{% endblock %}

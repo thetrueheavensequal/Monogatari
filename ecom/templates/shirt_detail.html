@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="row g-4 align-items-start">
+        <!-- Product Info -->
+        <div class="col-md-6">
+          <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Men</a></li>
+              <li class="breadcrumb-item"><a href="#">Clothing</a></li>
+              <li class="breadcrumb-item active" aria-current="page">T-shirts</li>
+            </ol>
+          </nav>
+          <h2 class="fw-bold mb-2">{{ shirt.name }}</h2>
+          <div class="fs-4 mb-3 text-muted">₹{{ shirt.price }}</div>
+          <form class="mb-4">
+            <div class="mb-3">
+              <label for="size" class="form-label">Choose size:</label>
+              <select class="form-select w-auto d-inline-block" id="size" name="size">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+            </div>
+          </form>
+          <form method="post" action="{% url 'cart' %}" class="mb-2 d-grid gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="shirt_slug" value="{{ shirt.slug }}">
+            <button type="submit" class="btn btn-dark btn-lg rounded-1">ADD TO CART</button>
+          </form>
+          <form method="post" action="{% url 'wishlist' %}" class="d-grid gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="shirt_slug" value="{{ shirt.slug }}">
+            <button type="submit" class="btn btn-outline-dark btn-lg rounded-1">
+              <i class="bi bi-heart me-2"></i>ADD TO WISHLIST
+            </button>
+          </form>
+          <h5 class="fw-bold mt-4 mb-2">About the product</h5>
+          <div class="mb-2"><strong>Composition:</strong></div>
+          <div class="mb-2">
+            95% organic cotton, 5% elastane. The fabric is made in Turkey, has GOTS (Global Organic Textile Standard) and Oeko-Tex® Standard 100 certificates.<br>
+            The t-shirt was sewn in Italy.
+          </div>
+          <ul class="mb-3">
+            <li>GOTS CERTIFICATE</li>
+            <li>ETHICAL WORK</li>
+            <li>THERMOREGULATION</li>
+            <li>NO CHEMICALS</li>
+          </ul>
+          <div class="mb-2"><strong>Care of clothes:</strong></div>
+          <div class="text-muted" style="font-size: 0.97rem;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quaerat labore iusto architecto sequi neque, assumenda numquam quo eius libero dolorum nesciunt animi molestias quae eveniet et sed perspiciatis ab.
+          </div>
+        </div>
+        <!-- Product Image -->
+        <div class="col-md-6">
+          <div class="rounded-4 d-flex align-items-center justify-content-center p-4" style="min-height:420px; background: transparent">
+            <img src="{{ shirt.image.url }}" class="img-fluid rounded-3" alt="{{ shirt.name }}" style="max-height: 400px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+{% endblock %}

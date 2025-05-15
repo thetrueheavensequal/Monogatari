@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        height: 100%;
+        min-height: 100vh;
+    }
+    .container {
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        background:linear-gradient(135deg, #CFB284, #FFEFCB, #F6E3BA);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .box-1, .box-2 {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .content-holder {
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        font-weight: lighter;
+        letter-spacing: 2px;
+        padding: 30px 10px 10px 10px;
+    }
+    .content-holder h2 {
+        font-size: 34px;
+        margin: 20px auto;
+    }
+    .content-holder p {
+        margin: 30px auto;
+    }
+    .content-holder button {
+        border: none;
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 6px;
+        background-color: white;
+        width: 150px;
+        margin: 20px auto;
+        cursor: pointer;
+    }
+    .button-2 {
+        display: none;
+    }
+    .login-form-container{
+        text-align: center;
+        margin-top: 0;
+        padding: 20px 0;
+    }
+    .login-form-container h1{
+        color: black;
+        font-size: 24px;
+        padding: 20px;
+    }
+    .input-field {
+        box-sizing: border-box;
+        font-size: 14px;
+        padding: 10px;
+        border-radius: 7px;
+        border: 1px solid rgb(168, 168, 168);
+        width: 250px;
+        outline: none;
+    }
+    .login-button{
+        box-sizing: border-box;
+        color: white;
+        font-size: 14px;
+        padding: 13px;
+        border-radius: 7px;
+        border: none;
+        width: 250px;
+        outline: none;
+        background-color: rgb(56, 102, 189);
+        cursor: pointer;
+    }
+    .messages {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 90%;
+        max-width: 400px;
+    }
+    .alert {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        color: #fff;
+        background-color: #dc3545;
+        text-align: center;
+    }
+    .alert-error {
+        background-color: #dc3545;
+    }
+    .alert-success {
+        background-color: #28a745;
+    }
+    .error-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #CFB284, #FFEFCB, #F6E3BA);
+        z-index: 9999;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .error-message {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 90%;
+        width: 400px;
+    }
+
+    .error-message h2 {
+        color: #dc3545;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .error-message p {
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+
+    .error-button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .error-button:hover {
+        background: #c82333;
+    }
+</style>
+</head>
+<body>
+    {% if messages %}
+        <div class="error-container">
+            <div class="error-message">
+                <h2>Oops!</h2>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                {% if 'Account does not exist' in messages|join:'' %}
+                    <button class="error-button" onclick="window.location.href='{% url 'users:signup' %}'">Create Account</button>
+                {% else %}
+                    <button class="error-button" onclick="window.location.reload()">Try Again</button>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+<div class="container">
+    <div class="box-1">
+        <div class="content-holder">
+            <h2>Hello!</h2>
+            <button class="button-1" onclick="signup()">Sign up</button>
+        </div>
+    </div>
+    <div class="box-2">
+        <div class="login-form-container">
+            <h1>Login Form</h1>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" class="input-field" required>
+                <br><br>
+                <input type="password" name="password" placeholder="Password" class="input-field" required>
+                <br><br>
+                <button class="login-button" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function login() {
+        document.querySelector(".signup-form-container").style.display = "none";
+        document.querySelector(".login-form-container").style.display = "block";
+        document.querySelector(".container").style.background = "linear-gradient(to bottom, rgb(6, 108, 224),  rgb(14, 48, 122))";
+        document.querySelector(".button-2").style.display = "none";
+        document.querySelector(".button-1").style.display = "block";
+    }
+    function signup() {
+        window.location.href = "{% url 'users:signup' %}";
+    }
+    // Ensure login form is visible on load
+    document.addEventListener("DOMContentLoaded", function() {
+        login();
+    });
+    // Auto-hide messages after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const messages = document.querySelector('.messages');
+            if (messages) {
+                messages.style.display = 'none';
+            }
+        }, 5000);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<div class="ss-container">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ss-container {
+            height: 100%;
+            margin: 0;
+        }
+        p{
+            color: black;
+        }
+        .ss-container {
+            background: #DFCAA0;
+            font: 13px monospace;
+            color: #FFFFFF;
+            min-height: 100vh;
+        }
+        .center-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-label {
+            display: inline-block;
+            position: relative;
+            height: 45px;
+            width: 45px;
+            box-sizing: border-box;
+            margin: 0 8px 7px 0;
+            padding: 7px 9px 0 9px;
+            border: 3px solid #fff;
+            border-radius: 50px;
+            background: transparent;
+            transition: width 0.4s cubic-bezier(.55,0,.1,1);
+            overflow: hidden;
+        }
+        .search-label.active,
+        .search-label:focus-within {
+            width: 300px;
+            background: #fff;
+            border-color: #fff;
+        }
+        .search-label input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font: 16px monospace;
+            color: #913D88;
+            padding: 0 10px;
+            height: 30px;
+            transition: color 0.3s;
+        }
+        .search-label input::placeholder {
+            color: #bbb;
+            opacity: 1;
+        }
+        .search-label .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #913D88;
+            font-size: 20px;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+        .search-label.active .search-icon,
+        .search-label:focus-within .search-icon {
+            color: #913D88;
+        }
+        .search-label input {
+            background: transparent;
+        }
+        .search-label .btn {
+            position: absolute;
+            right: 3.5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #DFCAA0;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .search-label .btn:hover {
+            background: linear-gradient(270deg, 
+            red, orange, yellow, green, cyan, blue, violet, red);
+          background-size: 1600% 1600%;
+          animation: rainbowFlow 2s linear infinite;
+          color: white; /* optional for contrast */
+        }
+        
+        @keyframes rainbowFlow {
+          0% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 100% 50%;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="center-container">
+    <div>
+        <form method="get" action="{% url 'search' %}" autocomplete="off">
+            <label class="search-label" id="searchLabel">
+                <input id="inpt_search" name="q" type="text" placeholder="Search..." autocomplete="off">
+                <div id="suggestions" class="list-group position-absolute w-100" style="z-index:10; display:none;"></div>
+                <button class="btn" type="submit"><i class="bi bi-arrow-right"></i></button>
+            </label>
+        </form>
+        Pull the icon to see the magic~
+        {% if results %}
+            <div class="mt-4">
+                <h5>Results for "{{ query }}":</h5>
+                <ul class="list-group">
+                    {% for product in results %}
+                        <li class="list-group-item">
+                            <a href="{% url 'product_detail' category=product.category slug=product.slug %}">
+                                {{ product.name }} - ₹{{ product.price }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% elif query %}
+            <div class="mt-4 text-danger">No results found for "{{ query }}".</div>
+        {% endif %}
+        
+        <script>
+        const searchInput = document.getElementById('inpt_search');
+        const suggestionsBox = document.getElementById('suggestions');
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            if (query.length < 2) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+            fetch("{% url 'search' %}?q=" + encodeURIComponent(query), {
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                suggestionsBox.innerHTML = '';
+                if (data.suggestions.length) {
+                    data.suggestions.forEach(function(suggestion) {
+                        const item = document.createElement('button');
+                        item.type = 'button';
+                        item.className = 'list-group-item list-group-item-action';
+                        item.textContent = suggestion;
+                        item.onclick = function() {
+                            searchInput.value = suggestion;
+                            suggestionsBox.style.display = 'none';
+                            searchInput.form.submit();
+                        };
+                        suggestionsBox.appendChild(item);
+                    });
+                    suggestionsBox.style.display = 'block';
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            });
+        });
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+        </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</div>
+{% endblock %}
