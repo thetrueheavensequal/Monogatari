@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-all duration-300">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./style/index.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .glass-dark {
+          @apply relative border border-white/20 bg-white/10 backdrop-blur-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(255,255,255,0.1)] overflow-hidden;
+        }
+      }
+
+      html {
+        transition: background 0.4s ease, color 0.4s ease;
+      }
+
+      body.dark {
+        background-color: #0d1117;
+      }
+    </style>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body
+    class="bg-[#F5F2ED] text-gray-900 dark:bg-[#0d1117] dark:text-white transition-all duration-300"
+  >
+    <!-- Header -->
+    <header
+      class="bg-[#8F754F] text-white font-semibold m-4 p-5 rounded-xl shadow-lg dark:glass-dark"
+    >
+      <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <ul class="flex gap-4 text-md">
+          <li><a href="#home" class="hover:underline">Home</a></li>
+          <li><a href="#courses" class="hover:underline">Courses</a></li>
+          <li><a href="#booking" class="hover:underline">Booking</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+          <li><a href="#about" class="hover:underline">About</a></li>
+        </ul>
+        <ul class="flex gap-4 text-md">
+          <li>
+            <a id="theme-toggle" href="javascript:void(0)"
+              ><img
+                src="./assets/icons/light-mode.png"
+                alt="lightmode"
+                width="42"
+                id="theme-icon"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="hero-section bg-[#F8E0A3] m-4 px-8 pt-20 pb-18 rounded-xl shadow-md flex flex-col lg:flex-row items-center justify-between gap-12 dark:glass-dark"
+    >
+      <div class="text-left flex-1">
+        <h1 class="text-4xl font-bold mb-4">
+          Revolutionizing Learning with <br />Smart Courses and Evidence-Based
+          <br />Teaching Approaches
+        </h1>
+        <p class="font-medium text-gray-800 leading-relaxed dark:text-white">
+          At Scoreazy, we’re reimagining education by blending innovative
+          courses with data-driven teaching methods.<br />
+          Our mission is to unlock every student’s full potential through a
+          personalized and engaging learning experience.<br />
+          What began as a bold idea—to integrate technology and insight into the
+          heart of learning—has grown into a dynamic approach that empowers both
+          students and educators.
+        </p>
+        <a
+          href="#contact"
+          class="inline-block bg-[#385F71] text-white font-semibold mt-5 px-6 py-3 rounded-xl shadow-md hover:bg-red-500 transition duration-300"
+        >
+          Contact Us
+        </a>
+      </div>
+      <div class="flex-1">
+        <img
+          src="./assets/images/hero-section.png"
+          alt="Hero"
+          class="-mt-20 -mr-8 rounded-xl max-w-[800px]"
+        />
+      </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section
+      id="courses"
+      class="course-section bg-[#B7D5AC] m-4 px-8 py-20 rounded-xl shadow-md flex flex-col lg:flex-row items-center justify-between gap-12 dark:glass-dark"
+    >
+      <div class="text-left flex-1 w-full">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">
+          Why should you choose our courses?
+        </h1>
+        <p class="font-medium text-gray-800 mb-6 leading-relaxed dark:text-gray-300"">
+          At Scoreazy, we don't just teach — we engineer learning. <br />
+          Our courses blend the power of educational psychology, AI-driven
+          personalization, and real-world mentorship to help students grow
+          smarter, stronger in academics, and more confident.
+        </p>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6 dark:text-white">
+          Our Courses Include:
+        </h2>
+
+        <!-- Card Deck -->
+        <div
+          class="flex flex-col lg:flex-row justify-center items-stretch gap-6"
+        >
+          <!-- Card 1 -->
+          <div
+            class="bg-[#F8E0A3] p-6 rounded-xl border-[2px] border-[black] shadow-md flex flex-col items-center text-center flex-1 dark:glass-dark"
+          >
+            <h3 class="text-lg font-bold text-gray-900 mb-2 dark:text-gray-300">
+              Speak Up & Shine!
+            </h3>
+            <p class="text-sm font-semibold text-gray-800 dark:text-gray-400">
+              - For boosting confidence in communication and presentation/public
+              speaking
+              <br />
+              <br />
+              - Classes 3-5
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="bg-[#F8E0A3] p-6 rounded-xl border-[2px] border-[black] shadow-md flex flex-col items-center text-center flex-1 dark:glass-dark"
+          >
+            <h3 class="text-lg font-bold text-gray-900 mb-2 dark:text-gray-300">Mentor Me!</h3>
+            <p class="text-sm font-semibold text-gray-800 dark:text-gray-400">
+              - For one-on-one academic guidance
+              <br />
+              <br />
+              - Classes 3-10
+              <br />
+              <br />
+              - Seperate classes for subjects available
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="bg-[#F8E0A3] p-6 rounded-xl border-[2px] border-[black] shadow-md flex flex-col items-center text-center flex-1 dark:glass-dark"
+          >
+            <h3 class="text-lg font-bold text-gray-900 mb-2 dark:text-gray-300">
+              1-Week Academic Skill Booster (Class 10)
+            </h3>
+            <p class="text-sm font-semibold text-gray-800 dark:text-gray-400">
+              - For quick performance acceleration of entire syllabus
+            </p>
+          </div>
+        </div>
+
+        <!-- 4th Card Below -->
+        <div
+          class="bg-[#F8E0A3] mt-8 p-6 rounded-xl border-[1px] border-[black] shadow-md text-center max-w-[500px] mx-auto dark:glass-dark"
+        >
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-300">
+            EARN EAZY XP BY COMPLETING CLASSES TO GET CUSTOMIZED REWARDS
+          </h3>
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <img
+          src="./assets/images/course-section.png"
+          alt="Courses"
+          class="rounded-xl w-full max-w-[550px]"
+        />
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section
+      id="booking"
+      class="booking-section bg-[#D38B5D] m-4 px-8 py-20 rounded-xl shadow-md flex flex-col lg:flex-row items-center justify-between gap-12 dark:glass-dark"
+    >
+      <div class="w-full max-w-[900px] mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-6">
+          Book a Course or Demo
+        </h2>
+        <form
+          class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#A39B8B] p-6 rounded-lg shadow-md dark:glass-dark"
+          action="#"
+          method="POST"
+        >
+          <!-- Full Name -->
+          <div class="col-span-1">
+            <label for="name" class="block font-medium">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="John Doe"
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="col-span-1">
+            <label for="email" class="block font-medium">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            />
+          </div>
+
+          <!-- Phone -->
+          <div class="col-span-1">
+            <label for="phone" class="block font-medium">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              placeholder="123-456-7890"
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            />
+          </div>
+
+          <!-- Course Selection -->
+          <div class="col-span-1">
+            <label for="course" class="block font-medium">Select Course</label>
+            <select
+              id="course"
+              name="course"
+              required
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            >
+              <option disabled selected>Select a course</option>
+              <option>Speak Up & Shine (Grades 3–5)</option>
+              <option>Mentor Me – Personalized Confidence Plan</option>
+              <option>Academic Skill Booster (Class 10)</option>
+            </select>
+          </div>
+
+          <!-- Preferred Mode -->
+          <div class="col-span-1">
+            <label class="block font-medium">Preferred Mode</label>
+            <div class="flex gap-4 mt-2">
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="mode"
+                  value="Live"
+                  required
+                  class="text-blue-600 "
+                />
+                <span class="ml-2">Live Session</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="mode"
+                  value="Self-Paced"
+                  required
+                  class="text-blue-600"
+                />
+                <span class="ml-2">Self-Paced</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Student's Class -->
+          <div class="col-span-1">
+            <label for="class" class="block font-medium">Student's Class</label>
+            <select
+              id="class"
+              name="class"
+              required
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            >
+              <option disabled selected>Select class</option>
+              <option>Grade 3</option>
+              <option>Grade 4</option>
+              <option>Grade 5</option>
+              <option>Grade 6</option>
+              <option>Grade 7</option>
+              <option>Grade 8</option>
+              <option>Grade 9</option>
+              <option>Class 10</option>
+            </select>
+          </div>
+
+          <!-- Preferred Date -->
+          <div class="col-span-1">
+            <label for="date" class="block font-medium"
+              >Preferred Start Date (optional)</label
+            >
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+            />
+          </div>
+
+          <!-- Notes (Full width) -->
+          <div class="col-span-2">
+            <label for="message" class="block font-medium"
+              >Additional Notes (optional)</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="mt-1 w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#1e1e2f]"
+              placeholder="Anything we should know about the student?"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button (Full width & centered) -->
+          <div class="col-span-2 text-center">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white font-medium px-6 py-3 rounded hover:bg-blue-700 transition"
+            >
+              Book Now
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact Section-->
+    <section
+      id="contact"
+      class="contact-section bg-[#98473E] m-4 px-8 py-20 rounded-xl shadow-md flex flex-col lg:flex-row items-center justify-between gap-12 dark:glass-dark"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Get in Touch</h2>
+        <p class="text-center text-white mb-10">
+          Have a question? Need help choosing the right course? Our team is here
+          for you.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Contact Details -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-blue-600 text-xl">📍</span>
+              <p><strong>Office:</strong> Bengaluru, India</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-blue-600 text-xl">📞</span>
+              <p><strong>Phone:</strong> +91 98765 43210</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-blue-600 text-xl">✉️</span>
+              <p><strong>Email:</strong> support@scoreazy.com</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-blue-600 text-xl">🌐</span>
+              <p><strong>Website:</strong> www.scoreazy.com</p>
+            </div>
+          </div>
+
+          <!-- Quick Contact Form -->
+          <form class="space-y-4">
+            <input
+              type="text"
+              placeholder="Your Name"
+              required
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              required
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <textarea
+              rows="4"
+              placeholder="Your Message"
+              required
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition w-full"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section-->
+    <section
+      id="about"
+      class="contact-section bg-[#F8E0A3] m-4 px-8 py-20 rounded-xl shadow-md flex flex-col lg:flex-row items-center justify-between gap-12 dark:glass-dark"
+    >
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">About Scoreazy</h2>
+        <p class="text-gray-700 text-lg leading-relaxed dark:text-gray-300">
+          Scoreazy is a student-first platform blending
+          <strong>educational psychology</strong>,
+          <strong>cutting-edge AI</strong>, and real-world mentorship to unlock
+          every learner’s full potential.
+        </p>
+        <p class="mt-6 text-gray-600 dark:text-gray-400">
+          From self-paced microcourses to guided academic boosters and 1-on-1
+          mentoring, our offerings are designed to make learning personal,
+          powerful, and practical — because we believe every student deserves to
+          score with confidence.
+        </p>
+        <p class="mt-6 text-blue-600 font-medium ">
+          Backed by tech. Built by teachers. Driven by results.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="bg-[#8F754F] text-white text-center p-2 m-4 rounded-xl shadow-md dark:glass-dark"
+    >
+      <p class="font-bold">
+        © 2025 SCOREAZY EDUTECH PVT LTD. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- Toggle Script -->
+<script>
+  const toggleBtn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark');
+    icon.src = './assets/icons/dark-mode.png';
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark');
+    icon.src = './assets/icons/night-mode.png';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    document.body.classList.toggle('dark');
+    localStorage.theme = isDark ? 'dark' : 'light';
+    icon.src = isDark ? './assets/icons/night-mode.png' : './assets/icons/light-mode.png';
+  });
+</script>
+
+  </body>
+</html>
